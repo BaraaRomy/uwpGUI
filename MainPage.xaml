@@ -1,0 +1,367 @@
+﻿<Page
+    x:Class="uwpGUI.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:uwpGUI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="1">
+            <Button Content="test" Name="test" Click="test_Click" Height="37" Width="154"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Name="ReaderStateTB" Text="{Binding ReaderStateText}" Width="100" TextAlignment="Left" VerticalAlignment="Center"/>
+                <Ellipse x:Name="readerStateGUI" Fill="{Binding ReaderBrush}" Height="50" Width="50" Margin="0,10,0,0" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Name="SerialStateTB" Text="{Binding SerialStateText}" Width="100" TextAlignment="Left" VerticalAlignment="Center"/>
+                <Ellipse x:Name="SerialStateGUI" Fill="{Binding SerialBrush}" Height="50" Width="50" Margin="0,10,0,0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Name="TagStateTB" Text="{Binding TagStateText}" Width="100" TextAlignment="Left" VerticalAlignment="Center"/>
+                <Ellipse x:Name="TagStateGUI" Fill="{Binding TagBrush}" Height="50" Width="50" Margin="0,10,0,0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Name="SpeedTB" Text="Speed:" Width="100" TextAlignment="Left" VerticalAlignment="Center"/>
+                <TextBlock Name="SpeedValue" Text="{Binding SpeedText}"  Height="50" Width="50" Margin="0,10,0,0"/>
+            </StackPanel>
+        </StackPanel>
+
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <Grid x:Name="grid" Grid.Column="0" Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Header Row -->
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="150"/>
+                    </Grid.ColumnDefinitions>
+                    <Border BorderBrush="Black" BorderThickness="1">
+                        <TextBlock Text="EPC" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1">
+                        <TextBlock Text="Date Time" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" Grid.Column="2">
+                        <TextBlock Text="Speed" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" Grid.Column="3">
+                        <TextBlock Text="power" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" Grid.Column="4">
+                        <TextBlock Text="Peak RSSI" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                    </Border>
+                    <Border BorderBrush="Black" BorderThickness="1" Grid.Column="5">
+                        <TextBlock Text="Time(PC)" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                    </Border>
+                </Grid>
+
+                <!-- Data Rows -->
+                <ItemsControl Grid.Row="1" ItemsSource="{Binding TagsList}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                </Grid.ColumnDefinitions>
+                                <Border BorderBrush="Black" BorderThickness="1">
+                                    <TextBlock Text="{Binding EPC}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                                <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1">
+                                    <TextBlock Text="{Binding Date_Time}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                                <Border BorderBrush="Black" BorderThickness="1" Grid.Column="2">
+                                    <TextBlock Text="{Binding Speed}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                                <Border BorderBrush="Black" BorderThickness="1" Grid.Column="3">
+                                    <TextBlock Text="{Binding Power}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                                <Border BorderBrush="Black" BorderThickness="1" Grid.Column="4">
+                                    <TextBlock Text="{Binding Peak_RSSI}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                                <Border BorderBrush="Black" BorderThickness="1" Grid.Column="5">
+                                    <TextBlock Text="{Binding Time_PC}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                                    
+                <!--<ItemsControl Grid.Row="1" ItemsSource="{Binding TagsList}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                    --><!-- Add more column definitions for other properties --><!--
+                                </Grid.ColumnDefinitions>
+                                <Border BorderBrush="Black" BorderThickness="1">
+                                    <TextBlock Text="{Binding EPC}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                                <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1">
+                                    <TextBlock Text="{Binding FirstSeen}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                                <Border BorderBrush="Black" BorderThickness="1" Grid.Column="2">
+                                    <TextBlock Text="{Binding LastSeen}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                                <Border BorderBrush="Black" BorderThickness="1" Grid.Column="3">
+                                    <TextBlock Text="{Binding Accuracy}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                                <Border BorderBrush="Black" BorderThickness="1" Grid.Column="4">
+                                    <TextBlock Text="{Binding SeenTimes}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                                <Border BorderBrush="Black" BorderThickness="1" Grid.Column="5">
+                                    <TextBlock Text="{Binding RealSpeed}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                                <Border BorderBrush="Black" BorderThickness="1" Grid.Column="6">
+                                    <TextBlock Text="{Binding RealAccuracy}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                                <Border BorderBrush="Black" BorderThickness="1" Grid.Column="7">
+                                    <TextBlock Text="{Binding MinDelay}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                                <Border BorderBrush="Black" BorderThickness="1" Grid.Column="8">
+                                    <TextBlock Text="{Binding MaxDelay}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                                <Border BorderBrush="Black" BorderThickness="1" Grid.Column="9">
+                                    <TextBlock Text="{Binding DiffT4LastSeen}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                                <Border BorderBrush="Black" BorderThickness="1" Grid.Column="10">
+                                    <TextBlock Text="{Binding FirstAssetExactDetection}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                                <Border BorderBrush="Black" BorderThickness="1" Grid.Column="11">
+                                    <TextBlock Text="{Binding MinusAccuracy}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                                <Border BorderBrush="Black" BorderThickness="1" Grid.Column="12">
+                                    <TextBlock Text="{Binding PlusAccuracy}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                                <Border BorderBrush="Black" BorderThickness="1" Grid.Column="13">
+                                    <TextBlock Text="{Binding MaxAccuracyError}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                                --><!-- Add more TextBlocks for other properties --><!--
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>-->
+            </Grid>
+        </ScrollViewer>
+
+    </Grid>
+</Page>
+
+
+<!--<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <ListView x:Name="listView" Grid.Column="0" ItemsSource="{Binding TagsList}">
+            <ListView.HeaderTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" >
+                        <TextBlock Text="EPC" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                        <TextBlock Text="First Seen" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Last Seen" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Accuracy" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Seen Times" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Real Speed" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Real Accuracy" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Min Delay" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Max Delay" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Diff T4 Last Seen" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                        <TextBlock Text="First Asset Exact Detection" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Minus Accuracy" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Plus Accuracy" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                        <TextBlock Text="Max Accuracy Error" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.HeaderTemplate>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding EPC}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                        <TextBlock Text="{Binding FirstSeen}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                        <TextBlock Text="{Binding LastSeen}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                        <TextBlock Text="{Binding Accuracy}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                        <TextBlock Text="{Binding SeenTimes}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                        <TextBlock Text="{Binding RealSpeed}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                        <TextBlock Text="{Binding RealAccuracy}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                        <TextBlock Text="{Binding MinDelay}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                        <TextBlock Text="{Binding MaxDelay}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                        <TextBlock Text="{Binding DiffT4LastSeen}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                        <TextBlock Text="{Binding FirstAssetExactDetection}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                        <TextBlock Text="{Binding MinusAccuracy}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                        <TextBlock Text="{Binding PlusAccuracy}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                        <TextBlock Text="{Binding MaxAccuracyError}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        </ScrollViewer>-->
+
+
+<!--<ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <Grid x:Name="grid" Grid.Column="0" Margin="5">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                --><!-- Header Row --><!--
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="150"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="EPC" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                    <TextBlock Text="First Seen" Margin="5" Width="150" HorizontalAlignment="Left" Grid.Column="1"/>
+                    <TextBlock Text="Last Seen" Margin="5" Width="150" HorizontalAlignment="Left" Grid.Column="2"/>
+                    <TextBlock Text="Accuracy" Margin="5" Width="150" HorizontalAlignment="Left" Grid.Column="3"/>
+                    <TextBlock Text="Seen Times" Margin="5" Width="150" HorizontalAlignment="Left" Grid.Column="4"/>
+                    <TextBlock Text="Real Speed" Margin="5" Width="150" HorizontalAlignment="Left" Grid.Column="5"/>
+                    <TextBlock Text="Real Accuracy" Margin="5" Width="150" HorizontalAlignment="Left" Grid.Column="6"/>
+                    <TextBlock Text="Min Delay" Margin="5" Width="150" HorizontalAlignment="Left" Grid.Column="7"/>
+                    <TextBlock Text="Max Delay" Margin="5" Width="150" HorizontalAlignment="Left" Grid.Column="8"/>
+                    <TextBlock Text="Diff T4 Last Seen" Margin="5" Width="150" HorizontalAlignment="Left" Grid.Column="9"/>
+                    <TextBlock Text="First Asset Exact Detection" Margin="5" Width="150" HorizontalAlignment="Left" Grid.Column="10"/>
+                    <TextBlock Text="Minus Accuracy" Margin="5" Width="150" HorizontalAlignment="Left" Grid.Column="11"/>
+                    <TextBlock Text="Plus Accuracy" Margin="5" Width="150" HorizontalAlignment="Left" Grid.Column="12"/>
+                    <TextBlock Text="Max Accuracy Error" Margin="5" Width="150" HorizontalAlignment="Left" Grid.Column="13"/>
+                </Grid>
+
+                --><!-- Data Rows --><!--
+                <ItemsControl Grid.Row="1" ItemsSource="{Binding TagsList}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="150"/>
+                                </Grid.ColumnDefinitions>
+                                <Border BorderThickness="1" 
+                                        BorderBrush="{Binding ElementName=MainPage, Path=Background, Converter={StaticResource BorderColorConverter}}">
+                                    <TextBlock Text="{Binding EPC}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                                <Border BorderThickness="1" 
+                                        BorderBrush="{Binding ElementName=MainPage, Path=Background, Converter={StaticResource BorderColorConverter}}"
+                                        Grid.Column="1">
+                                    <TextBlock Text="{Binding FirstSeen}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                                <Border BorderThickness="1" 
+                                        BorderBrush="{Binding ElementName=MainPage, Path=Background, Converter={StaticResource BorderColorConverter}}"
+                                        Grid.Column="2">
+                                    <TextBlock Text="{Binding LastSeen}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                                <Border BorderThickness="1" 
+                                        BorderBrush="{Binding ElementName=MainPage, Path=Background, Converter={StaticResource BorderColorConverter}}"
+                                        Grid.Column="3">
+                                    <TextBlock Text="{Binding Accuracy}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                                <Border BorderThickness="1" 
+                                        BorderBrush="{Binding ElementName=MainPage, Path=Background, Converter={StaticResource BorderColorConverter}}"
+                                        Grid.Column="4">
+                                    <TextBlock Text="{Binding SeenTimes}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                                <Border BorderThickness="1" 
+                                        BorderBrush="{Binding ElementName=MainPage, Path=Background, Converter={StaticResource BorderColorConverter}}"
+                                        Grid.Column="5">
+                                    <TextBlock Text="{Binding RealSpeed}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                                <Border BorderThickness="1" 
+                                        BorderBrush="{Binding ElementName=MainPage, Path=Background, Converter={StaticResource BorderColorConverter}}"
+                                        Grid.Column="6">
+                                    <TextBlock Text="{Binding RealAccuracy}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                                <Border BorderThickness="1" 
+                                        BorderBrush="{Binding ElementName=MainPage, Path=Background, Converter={StaticResource BorderColorConverter}}"
+                                        Grid.Column="7">
+                                    <TextBlock Text="{Binding MinDelay}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                                <Border BorderThickness="1" 
+                                        BorderBrush="{Binding ElementName=MainPage, Path=Background, Converter={StaticResource BorderColorConverter}}"
+                                        Grid.Column="8">
+                                    <TextBlock Text="{Binding MaxDelay}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                                <Border BorderThickness="1" 
+                                        BorderBrush="{Binding ElementName=MainPage, Path=Background, Converter={StaticResource BorderColorConverter}}"
+                                        Grid.Column="9">
+                                    <TextBlock Text="{Binding DiffT4LastSeen}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                                <Border BorderThickness="1" 
+                                        BorderBrush="{Binding ElementName=MainPage, Path=Background, Converter={StaticResource BorderColorConverter}}"
+                                        Grid.Column="10">
+                                    <TextBlock Text="{Binding FirstAssetExactDetection}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                                <Border BorderThickness="1" 
+                                        BorderBrush="{Binding ElementName=MainPage, Path=Background, Converter={StaticResource BorderColorConverter}}"
+                                        Grid.Column="11">
+                                    <TextBlock Text="{Binding MinusAccuracy}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                                <Border BorderThickness="1" 
+                                        BorderBrush="{Binding ElementName=MainPage, Path=Background, Converter={StaticResource BorderColorConverter}}"
+                                        Grid.Column="12">
+                                    <TextBlock Text="{Binding PlusAccuracy}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                                <Border BorderThickness="1" 
+                                        BorderBrush="{Binding ElementName=MainPage, Path=Background, Converter={StaticResource BorderColorConverter}}"
+                                        Grid.Column="13">
+                                    <TextBlock Text="{Binding MaxAccuracyError}" Margin="5" Width="150" HorizontalAlignment="Left"/>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </ScrollViewer>-->
+    
